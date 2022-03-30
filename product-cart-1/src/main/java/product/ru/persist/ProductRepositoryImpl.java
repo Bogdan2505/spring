@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ProductRepositoryImpl implements ProductRepository {
 
     private final Map<Long, Product> productMap = new ConcurrentHashMap<>();
+
     private final AtomicLong identity = new AtomicLong(0);
 
     @Override

@@ -33,5 +33,4 @@ public class AppConfig {
         return new CartService(productRepository);
     }
 
-
 }

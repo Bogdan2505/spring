@@ -21,7 +21,6 @@ public class Main {
 
         CartService cartService2 = context.getBean("cartService", CartService.class);
 
-
         cartService2.addProductById(productService.findProductById(2L));
         cartService2.showCart();
 
