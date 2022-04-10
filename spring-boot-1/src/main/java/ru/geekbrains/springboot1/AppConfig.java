@@ -16,6 +16,9 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 @EnableWebMvc
 @ComponentScan("ru.geekbrains")
 @Configuration
@@ -31,6 +34,18 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+    }
+
+    @Bean
+    public EntityManagerFactory getEntityManagerFactory(){
+        return new org.hibernate.cfg.Configuration()
+                .configure("hibernate.cfg.xml")
+                .buildSessionFactory();
+    }
+
+    @Bean
+    public EntityManager entityManager(){
+        return getEntityManagerFactory().createEntityManager();
     }
 
     @Bean
