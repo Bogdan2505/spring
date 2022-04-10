@@ -9,13 +9,20 @@ import java.util.List;
 
 public class CartService {
 
-    private final ProductRepository productRepository;
+    private final ProductService productService;
+
+    public CartService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    // private final ProductRepository productRepository;
+
 
     List<Product> cart = new ArrayList<>();
 
-    public CartService(ProductRepository productRepository) {
+  /*  public CartService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-    }
+    }*/
 
     public void addProductById(Product product){
         cart.add(product);

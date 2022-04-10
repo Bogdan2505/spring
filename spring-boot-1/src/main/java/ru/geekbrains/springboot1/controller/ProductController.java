@@ -8,53 +8,52 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.geekbrains.springboot1.persist.User;
-import ru.geekbrains.springboot1.persist.UserRepository;
+import ru.geekbrains.springboot1.persist.Product;
+import ru.geekbrains.springboot1.persist.ProductRepository;
 
-import javax.naming.Binding;
 import javax.validation.Valid;
 
-@RequestMapping("/user")
+@RequestMapping("/product")
 @Controller
-public class UserController {
+public class ProductController {
 
-    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @GetMapping
     public String listPage(Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        return "user";
+        model.addAttribute("products", productRepository.findAll());
+        return "product";
     }
 
     @GetMapping("/{id}")
     public String form(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userRepository.findById(id));
-        return "user_form";
+        model.addAttribute("product", productRepository.findById(id));
+        return "product_form";
     }
 
     @GetMapping("/new")
     public String add(Model model) {
-        model.addAttribute("user", new User());
-        return "user_form";
+        model.addAttribute("product", new Product());
+        return "product_form";
     }
 
     @PostMapping
-    public String save(@Valid User user, BindingResult binding) {
+    public String save(@Valid Product product, BindingResult binding) {
         if( binding.hasErrors()){
-            return "user_form";
+            return "product_form";
         }
-        userRepository.save(user);
-        return "redirect:/user";
+        productRepository.save(product);
+        return "redirect:/product";
     }
 
     @GetMapping("/delete/{id}")
     public String delete( @PathVariable("id") long id) {
-        userRepository.delete(id);
-        return "redirect:/user";
+        productRepository.delete(id);
+        return "redirect:/product";
     }
 }
