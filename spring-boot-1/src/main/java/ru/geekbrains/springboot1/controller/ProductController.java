@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.springboot1.persist.Product;
 import ru.geekbrains.springboot1.persist.ProductRepository;
 
@@ -17,6 +14,7 @@ import javax.validation.Valid;
 @Controller
 public class ProductController {
 
+
     private final ProductRepository productRepository;
 
     @Autowired
@@ -25,8 +23,18 @@ public class ProductController {
     }
 
     @GetMapping
-    public String listPage(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+    public String listPage(@RequestParam( required = false) String usernameFilter, Model model) {
+        System.out.println( " filter " + usernameFilter);
+
+       // if(userNameFilter.isEmpty() || userNameFilter.isBlank()) {
+        if(usernameFilter == null){
+            model.addAttribute("products", productRepository.findAll());
+        }else if (usernameFilter.equals("min")){
+            model.addAttribute("products", productRepository.sortMin());
+        }
+        else if (usernameFilter.equals("max")){
+            model.addAttribute("products", productRepository.sortMax());
+        }
         return "product";
     }
 
@@ -53,7 +61,7 @@ public class ProductController {
 
     @GetMapping("/delete/{id}")
     public String delete( @PathVariable("id") long id) {
-        productRepository.delete(id);
+        productRepository.deleteById(id);
         return "redirect:/product";
     }
 }
