@@ -1,8 +1,11 @@
 package ru.geekbrains.springboot1.persist;
 
+import org.hibernate.validator.constraints.ParameterScriptAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +18,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
     @Query("select p from Product p order by p.price asc")
     List<Product> sortMin();
@@ -23,6 +26,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p order by p.price desc ")
     List<Product> sortMax();
 
+    List<Product> findByTitleContaining(@Param("productTitle") String title);
+
+    List<Product> findAllById(@Param("productId") Long id);
+
+    @Query("select p from Product p " +
+            " where (p.title like concat('%', :title, '%') or :title is null) and" +
+            "       (p.id = :id or :id is null) ")
+    List<Product> findProductByFilter(@Param("id") Long id,
+                                      @Param("title") String title);
     // List<Product> findProductByTitleLike();
 }
 

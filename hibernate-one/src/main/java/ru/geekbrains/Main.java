@@ -2,6 +2,7 @@ package ru.geekbrains;
 
 import org.hibernate.cfg.Configuration;
 import ru.geekbrains.model.Buyer;
+import ru.geekbrains.model.LineItem;
 import ru.geekbrains.model.Product;
 
 
@@ -21,10 +22,10 @@ public class Main {
 
         // Buyer buyer = em.find(Buyer.class, 1L);
 
-     /*   em.getTransaction().begin();
-        em.persist(new Product("coco", 250, buyer));
+       em.getTransaction().begin();
+        em.persist(new Product("lime", 300));
         em.getTransaction().commit();
-        em.close();*/
+        em.close();
 
        /* em.getTransaction().begin();
         Buyer buyer = new Buyer("Troy");
@@ -34,8 +35,10 @@ public class Main {
         em.close();*/
 
         Buyer buyer = em.find(Buyer.class, 1L);
-        List<Product> productList = buyer.getProductList();
-        System.out.println(productList.get(0).toString());
+        List<LineItem> productList = buyer.getLineItems();
+       //System.out.println(productList.get(0).toString());
+
+
 
         //ProductRepository productRepository = new ProductRepository(emFactory);
         /// BuyerRepository buyerRepository = new BuyerRepository(emFactory);
