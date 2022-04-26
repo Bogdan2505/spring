@@ -20,20 +20,17 @@ public class Product {
     @Column(nullable = false)
     private int price;
 
-    @ManyToOne()
-    private Buyer buyer;
+    @OneToMany(
+            mappedBy = "product"
+    )
+    private List<LineItem> lineItems;
 
-    public Buyer getBuyer() {
-        return buyer;
+    public List<LineItem> getLineItems() {
+        return lineItems;
     }
 
-    public void setBuyer(Buyer buyer) {
-        this.buyer = buyer;
-    }
-
-    public Product(String title) {
-        this.title = title;
-
+    public void setLineItems(List<LineItem> lineItems) {
+        this.lineItems = lineItems;
     }
 
     public Long getId(){
@@ -62,10 +59,9 @@ public class Product {
 
     public Product(){}
 
-    public Product(String title, int price , Buyer buyer) {
+    public Product(String title, int price) {
         this.title = title;
         this.price = price;
-        this.buyer = buyer;
     }
 
     @Override

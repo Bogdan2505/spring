@@ -8,19 +8,27 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "products")
+@NamedQueries(
+        @NamedQuery(name = "findAllProducts", query = "from Product")
+)
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(nullable = false, unique = true)
     private String title;
 
-    @Min(0)
-    @Max(100000)
+
+    @Column(nullable = false)
     private int price;
+
+    public Product(Long id, String title, int price) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+    }
 
     public int getPrice() {
         return price;

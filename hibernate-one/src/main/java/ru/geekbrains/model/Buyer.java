@@ -9,27 +9,25 @@ import java.util.List;
 public class Buyer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue( )
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
     @OneToMany(
-            mappedBy = "buyer",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true
+           mappedBy = "buyer",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
             )
-    private List<Product> productList = new ArrayList<>();
+    private List<LineItem> lineItems;
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<LineItem> getLineItems() {
+        return lineItems;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setLineItems(List<LineItem> lineItems) {
+        this.lineItems = lineItems;
     }
-
 
     public Buyer() {
     }
