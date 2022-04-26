@@ -1,13 +1,13 @@
 package ru.geekbrains.springboot1.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.springboot1.dto.ProductDto;
 import ru.geekbrains.springboot1.persist.Product;
-import ru.geekbrains.springboot1.persist.ProductRepository;
 import ru.geekbrains.springboot1.service.ProductService;
 
 import javax.validation.Valid;
@@ -30,6 +30,7 @@ public class ProductController {
                            @RequestParam Optional<Long> idFilter,
                            @RequestParam Optional<Integer> page,
                            @RequestParam Optional<Integer> size,
+                           @RequestParam Optional<String> sortField,
                            Model model) {
 
         String titleFilterValue = titleFilter
@@ -40,9 +41,10 @@ public class ProductController {
                 .orElse(null);
         Integer pageValue = page.orElse(1) - 1;
         Integer sizeValue = size.orElse(3);
+        String sortFieldValue = sortField.filter(s -> !s.isBlank()).orElse("id");
 
         model.addAttribute("products", productService.
-                findProductByFilter(titleFilterValue, idFilterValue, pageValue, sizeValue));
+                findProductByFilter(titleFilterValue, idFilterValue, pageValue, sizeValue, sortFieldValue));
 
         return "product";
 
@@ -89,4 +91,5 @@ public class ProductController {
         productService.deleteById(id);
         return "redirect:/product";
     }
+
 }
