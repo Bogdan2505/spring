@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -35,6 +36,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             "       (p.id = :id or :id is null) ")
     List<Product> findProductByFilter(@Param("id") Long id,
                                       @Param("title") String title);
+
+    Optional<Product> findProductByTitle(@Param("title") String title);
+
     // List<Product> findProductByTitleLike();
 }
 
