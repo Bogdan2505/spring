@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.springboot1.controller.ProductSpecifications;
 import ru.geekbrains.springboot1.dto.ProductDto;
@@ -16,10 +17,12 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    
-    public ProductServiceImpl(ProductRepository productRepository) {
+
+    public ProductServiceImpl(ProductRepository productRepository, PasswordEncoder passwordEncoder) {
         this.productRepository = productRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -47,7 +50,15 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductDto save(ProductDto product) {
-        return productToDto(productRepository.save(new Product(product.getId(), product.getTitle(), product.getPrice())));
+        return productToDto(productRepository
+                .save(new Product(
+                        product.getId(),
+                        product.getTitle(),
+                        product.getPrice(),
+                        passwordEncoder.encode(product.getPassword())
+                        )
+                )
+        );
     }
 
     @Override

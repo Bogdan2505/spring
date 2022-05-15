@@ -48,21 +48,6 @@ public class ProductController {
 
         return "product";
 
-     /*   if ( titleFilter.isPresent() && !titleFilter.get().isBlank()) {
-                model.addAttribute("products", productRepository.findByTitleContaining(titleFilter.get()));
-            }else {
-                    model.addAttribute("products", productRepository.findAllById(idFilter.get()));
-          }*/
-        // if(userNameFilter.isEmpty() || userNameFilter.isBlank()) {
-       /* if(usernameFilter == null){
-            model.addAttribute("products", productRepository.findAll());
-        }else if (usernameFilter.equals("min")){
-            model.addAttribute("products", productRepository.sortMin());
-        }
-        else if (usernameFilter.equals("max")){
-            model.addAttribute("products", productRepository.sortMax());
-        }*/
-
     }
 
     @GetMapping("/{id}")

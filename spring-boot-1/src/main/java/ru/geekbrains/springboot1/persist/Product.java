@@ -5,6 +5,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -24,10 +25,22 @@ public class Product {
     @Column(nullable = false)
     private int price;
 
-    public Product(Long id, String title, int price) {
+    @Column(nullable = false, length = 512)
+    private String password;
+
+    public Product(Long id, String title, int price, String password) {
         this.id = id;
         this.title = title;
         this.price = price;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getPrice() {
@@ -71,5 +84,6 @@ public class Product {
         }
         return "цена не указана";
     }
+
 
 }
