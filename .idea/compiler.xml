@@ -6,10 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="product-cart-1" />
-        <module name="lesson-01-servlet-api" />
         <module name="spring-boot-1" />
-        <module name="hibernate-one" />
       </profile>
       <profile name="Annotation profile for Unknown" enabled="true">
         <sourceOutputDir name="../../target/generated-sources/annotations" />
@@ -20,6 +17,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="hibernate-1" target="11" />
+      <module name="hibernate-one" target="11" />
+      <module name="lesson-01-servlet-api" target="11" />
+      <module name="product-cart-1" target="11" />
       <module name="spriing-boot-1" target="1.5" />
       <module name="spring-boot" target="1.5" />
     </bytecodeTargetLevel>

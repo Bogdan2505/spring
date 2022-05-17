@@ -14,7 +14,10 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/hibernate-1/pom.xml" />
+        <option value="$PROJECT_DIR$/hibernate-one/pom.xml" />
         <option value="$PROJECT_DIR$/hibernate/pom.xml" />
+        <option value="$PROJECT_DIR$/lesson-01-servlet-api/pom.xml" />
+        <option value="$PROJECT_DIR$/product-cart-1/pom.xml" />
         <option value="$PROJECT_DIR$/untitled/pom.xml" />
       </set>
     </option>
